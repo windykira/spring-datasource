@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.aac.dao.webmessageboard.WebMessageBoardDao" >
+    <resultMap id="BaseResultMap" type="com.aac.entity.WebMessageBoardEntity" >
+
+        <id column="ID" property="id" jdbcType="BIGINT" />
+        <result column="UserID" property="userID" jdbcType="BIGINT" />
+        <result column="MessageUserID" property="messageUserID" jdbcType="BIGINT" />
+        <result column="Content" property="content" jdbcType="VARCHAR" />
+        <result column="CreateDate" property="createDate" jdbcType="TIMESTAMP" />
+        <result column="UpdateDate" property="updateDate" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        ID, UserID, MessageUserID, Content, CreateDate, UpdateDate
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select
+        <include refid="Base_Column_List" />
+        from web_messageboard
+        where ID = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+        delete from web_messageboard
+        where ID = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.aac.entity.WebMessageBoardEntity" >
+        insert into web_messageboard (UserID, MessageUserID,
+        Content, CreateDate, UpdateDate
+        )
+        values ( #{userID,jdbcType=BIGINT}, #{messageUserID,jdbcType=BIGINT},
+        #{content,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.aac.entity.WebMessageBoardEntity" >
+        insert into web_messageboard
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                ID,
+            </if>
+            <if test="userid != null" >
+                UserID,
+            </if>
+            <if test="messageuserid != null" >
+                MessageUserID,
+            </if>
+            <if test="content != null" >
+                Content,
+            </if>
+            <if test="createdate != null" >
+                CreateDate,
+            </if>
+            <if test="updatedate != null" >
+                UpdateDate,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="userid != null" >
+                #{userid,jdbcType=BIGINT},
+            </if>
+            <if test="messageuserid != null" >
+                #{messageuserid,jdbcType=BIGINT},
+            </if>
+            <if test="content != null" >
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate != null" >
+                #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="d != null" >
+                #{updatedate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aac.entity.WebMessageBoardEntity" >
+        update web_messageboard
+        <set >
+            <if test="userid != null" >
+                UserID = #{userid,jdbcType=BIGINT},
+            </if>
+            <if test="messageuserid != null" >
+                MessageUserID = #{messageuserid,jdbcType=BIGINT},
+            </if>
+            <if test="content != null" >
+                Content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate != null" >
+                CreateDate = #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedate != null" >
+                UpdateDate = #{updatedate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aac.entity.WebMessageBoardEntity" >
+        update web_messageboard
+        set UserID = #{userid,jdbcType=BIGINT},
+        MessageUserID = #{messageuserid,jdbcType=BIGINT},
+        Content = #{content,jdbcType=VARCHAR},
+        CreateDate = #{createdate,jdbcType=TIMESTAMP},
+        UpdateDate = #{updatedate,jdbcType=TIMESTAMP}
+        where ID = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

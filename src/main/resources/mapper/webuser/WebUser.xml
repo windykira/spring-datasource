@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.aac.dao.webuser.WebUserDao">
+
+    <resultMap id="BaseResultMap" type="com.aac.entity.WebUserEntity" >
+        <result column="ID" property="id" jdbcType="INTEGER" />
+        <result column="LoginName" property="loginName" jdbcType="VARCHAR" />
+        <result column="PassWord" property="passWord" jdbcType="VARCHAR" />
+        <result column="UserName" property="userName" jdbcType="VARCHAR" />
+        <result column="Mobile" property="mobile" jdbcType="VARCHAR" />
+        <result column="Email" property="email" jdbcType="VARCHAR" />
+        <result column="Logo" property="logo" jdbcType="VARCHAR" />
+        <result column="CreateDate" property="createDate" jdbcType="DATE" />
+        <result column="UpdateDate" property="updateDate" jdbcType="DATE" />
+    </resultMap>
+
+    <insert id="createWebUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.aac.entity.WebUserEntity">
+        insert into web_user(LoginName,PassWord,Alt,UserName,Birthday,Mobile,Email,Logo,CreateDate,UpdateDate)
+        values(#{loginName},#{passWord},#{alt},#{userName},#{birthday},#{mobile},#{email},#{logo},#{createDate},#{updateDate})
+    </insert>
+
+    <select id="listUsers" resultMap="BaseResultMap">
+        select * from web_user
+    </select>
+
+    <select id="getWebUserById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select * from web_user
+        <where>
+            web_user.ID = #{webUserId}
+        </where>
+    </select>
+
+    <delete id="deleteWebUserById" parameterType="java.lang.Long">
+        delete from web_user where ID = #{webUserId}
+    </delete>
+
+    <update id="updateWebUserById" parameterType="com.aac.entity.WebUserEntity">
+        update web_user
+        <set>
+            <if test="passWord != null and passWord !='' " >
+                PassWord = #{passWord,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null and userName !='' " >
+                UserName = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null and mobile !='' " >
+                Mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null and email !='' " >
+                Email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="logo != null and logo !='' " >
+                Logo = #{logo,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null" >
+                UpdateDate = #{updateDate,jdbcType=DATE},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
