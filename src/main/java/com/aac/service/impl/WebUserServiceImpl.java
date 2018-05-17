@@ -25,7 +25,8 @@ public class WebUserServiceImpl implements WebUserService {
 
     public List<WebUserEntity> listUsers() {
         //CustomerContextHolder.setCustomerType(CustomerContextHolder.DATA_SOURCE_MASTER);
-        return webUserDao.listUsers();
+        //return webUserDao.listUsers();
+        return null;
     }
 
     public int createWebUser(WebUserEntity webUserEntity) {
