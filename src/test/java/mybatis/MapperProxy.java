@@ -8,14 +8,15 @@ import java.lang.reflect.Method;
  */
 public class MapperProxy<T> implements InvocationHandler{
 
-    private T t;
+    private Class<T> methodInterface;
 
-    public MapperProxy(T t){
-        this.t = t;
+    public MapperProxy(Class<T> methodInterface) {
+        this.methodInterface = methodInterface;
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        return method.invoke(t,args);
+        System.out.println("方法名:" + method.getName());
+        return null;
     }
 }

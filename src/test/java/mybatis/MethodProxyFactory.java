@@ -14,7 +14,7 @@ public class MethodProxyFactory<T> {
     }
 
     protected T newInstance() throws IllegalAccessException, InstantiationException {
-        MapperProxy<T> mapperProxy = new MapperProxy(mapperInterface.newInstance());
+        MapperProxy<T> mapperProxy = new MapperProxy(mapperInterface);
         return (T)Proxy.newProxyInstance(mapperProxy.getClass().getClassLoader(),new Class[]{mapperInterface},mapperProxy);
     }
 }

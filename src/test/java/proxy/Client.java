@@ -18,10 +18,9 @@ public class Client {
     WebUserService webUserService;
 
     @Test
-    public void test(){
+    public void test() throws InstantiationException, IllegalAccessException {
 
-        WebUserService webUserService = this.webUserService;
-        WebUserService subWebUserService = ProxyFactory.newInstance(webUserService);
+        WebUserService subWebUserService = ProxyFactory.newInstance(WebUserService.class);
         subWebUserService.listUsers();
         assert subWebUserService !=  null;
     }

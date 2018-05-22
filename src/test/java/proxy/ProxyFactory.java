@@ -8,12 +8,11 @@ import java.lang.reflect.Proxy;
 /**
  * Created by Administrator on 2018/5/17.
  */
-public class ProxyFactory<T> {
+public class ProxyFactory {
 
-    public static <T> T newInstance(WebUserService subject){
-        ClassLoader classLoader = subject.getClass().getClassLoader();
-        Class<?>[] interfaces = subject.getClass().getInterfaces();
-        SubjectProxy handler = new SubjectProxy(subject);
-        return (T)Proxy.newProxyInstance(classLoader,interfaces,handler);
+    public static <T> T newInstance(Class<T> clazz){
+        ClassLoader classLoader = clazz.getClassLoader();
+        SubjectProxy<T> handler = new SubjectProxy(clazz);
+        return (T)Proxy.newProxyInstance(classLoader,new Class[]{clazz},handler);
     }
 }
